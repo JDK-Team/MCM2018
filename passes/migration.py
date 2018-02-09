@@ -1,12 +1,12 @@
 
-def migrations(world, n):
-    regionFrom = world.region[n]
+def migration(world, n):
+    regionFrom = world.regions[n]
     edgesOut = world.edges[n]
     for i in range(0,n):
         immigration = edgesOut[i]
         if (immigration == 0):
             continue
-        regionTo = world.region[i]
+        regionTo = world.regions[i]
         newPopFrom = regionFrom.population - immigration
         newPopTo = regionTo.population + immigration
 
