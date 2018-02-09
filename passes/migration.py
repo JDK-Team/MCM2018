@@ -3,7 +3,7 @@ def migration(world, n):
     regionFrom = world.regions[n]
     edgesOut = world.edges[n]
     for i in range(0,n):
-        immigration = edgesOut[i]
+        immigration = edgesOut[i].immigration
         if (immigration == 0):
             continue
         regionTo = world.regions[i]
