@@ -1,14 +1,15 @@
 
 from Struct import Struct
 import constants
+import numpy as np
 
 def create_regions(names, pops, L1s, L2s):
     regions = [Struct(name=n) for n in names]
     n = len(regions)
     for i in range(0,n):
         regions[i].population = pops[i]
-        regions[i].L1 = L1s[i]
-        regions[i].L2 = L2s[i]
+        regions[i].L1 = np.array(L1s[i])
+        regions[i].L2 = np.array(L2s[i])
     return regions
 
 def create_languages(names):
@@ -16,7 +17,11 @@ def create_languages(names):
     return languages
 
 def create_edges(immigrations):
-    edges = [[Struct(imconst=im) for im in row] for row in immigrations]
+    edges = [[Struct() for im in row] for row in immigrations]
+    for i in range(0,n):
+        for j in range(0,n):
+            edges[i][j].immigration = immigrations[i][j]
+            #edges[i][j].regionalImpact = regional
     return edges
 
 def create_from_constants():

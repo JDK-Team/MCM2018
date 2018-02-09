@@ -19,6 +19,6 @@ REGION_L2 = [[30, 0, 80],
 
 # edge attributes
 
-EDGE_IMMIGRATION = [[1,0,0]
-                    [0,1,0]
-                    [0,0,1]] # SIZE = NUM_REGIONS x NUM_REGIONS
+EDGE_IMMIGRATION = [[0,.5,0]
+                    [1,0,0]
+                    [.5,0,0]] # SIZE = NUM_REGIONS x NUM_REGIONS
