@@ -8,8 +8,8 @@ def create_regions(names, pops, L1s, L2s, brates, drates):
     n = len(regions)
     for i in range(0,n):
         regions[i].population = pops[i]
-        regions[i].L1 = np.array(L1s[i])
-        regions[i].L2 = np.array(L2s[i])
+        regions[i].L1 = np.array(L1s[i], dtype='f')
+        regions[i].L2 = np.array(L2s[i], dtype='f')
         regions[i].birthrate = brates[i]
         regions[i].deathrate = drates[i]
     return regions

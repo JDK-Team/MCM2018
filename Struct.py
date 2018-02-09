@@ -1,4 +1,4 @@
-from pprint import pformat
+from pprintpp import pformat
 
 class Struct(object):
     def __init__(self, **kwds):
