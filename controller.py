@@ -1,8 +1,26 @@
+#!/usr/bin/env python3
 
 from creategraph import create_from_constants
 from passes import *
 
 import random
+
+#logging
+import argparse
+import logging
+
+# LOGGING SETUP
+
+parser = argparse.ArgumentParser(description='Command-line arguments.')
+parser.add_argument("-l", 
+                    "--log", 
+                    dest="logLevel", 
+                    choices=['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'], 
+                    help="Set the logging level")
+
+args = parser.parse_args()
+if args.logLevel:
+    logging.basicConfig(level=getattr(logging, args.logLevel))
 
 # ways to run a pass
 
@@ -19,8 +37,11 @@ def run_pass_stoc(world, passfunc):
 # run an entire iteration of a model
 
 def model1_compiler_pass(world):
+    logging.debug(world)
     run_pass_seq(world, birth)
+    logging.debug(world)
     run_pass_seq(world, death)
+    logging.debug(world)
     run_pass_seq(world, migration)
     #run_pass_seq(world, regional)
 
@@ -46,6 +67,6 @@ def main():
     world = create_from_constants()
     
     model1_compiler(world, 1)
-    print(world)
+    logging.info(world)
     
 main()
