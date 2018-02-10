@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
-from creategraph import create_from_constants
-from passes import *
+from updates import *
 
 import random
 
@@ -22,6 +21,7 @@ args = parser.parse_args()
 if args.logLevel:
     logging.basicConfig(level=getattr(logging, args.logLevel))
 
+from creategraph import create_from_constants
 # ways to run a pass
 
 def run_pass_seq(world, passfunc):

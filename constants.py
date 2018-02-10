@@ -24,3 +24,8 @@ REGION_L2 = [[30, 0, 80],
 EDGE_IMMIGRATION = [[0,.5,0],
                     [1,0,0],
                     [.5,0,0]] # SIZE = NUM_REGIONS x NUM_REGIONS
+
+from data_retrival.import_mig import mig_data
+
+mig_data('r_migration2010_withk.csv')
+
