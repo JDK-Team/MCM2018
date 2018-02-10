@@ -37,11 +37,8 @@ def run_pass_stoc(world, passfunc):
 # run an entire iteration of a model
 
 def model1_compiler_pass(world):
-    logging.debug(world)
     run_pass_seq(world, birth)
-    logging.debug(world)
     run_pass_seq(world, death)
-    logging.debug(world)
     run_pass_seq(world, migration)
     #run_pass_seq(world, regional)
 
