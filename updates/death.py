@@ -1,8 +1,12 @@
 
 def death(world, n):
     region = world.regions[n]
-    percentL1 = region.L1 / region.population
-    percentL2 = region.L2 / region.population
-    region.population *= region.deathrate
-    region.L1 = percentL1*region.population
-    region.L2 = percentL2*region.population
+
+    thousands = region.population / 1000
+    region.population -= thousands * region.deathrate
+
+    thousandsL1 = region.L1 / 1000
+    region.L1 -= thousandsL1 * region.deathrate
+    
+    thousandsL2 = region.L2 / 1000
+    region.L2 -= thousandsL2 * region.deathrate

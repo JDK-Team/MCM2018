@@ -3,11 +3,15 @@ import logging
 def birth(world, n):
     region = world.regions[n]
 
-    logging.debug("BIRTH: " + region.name)
+    thousands = region.population / 1000
+    region.population += thousands * region.birthrate
 
-    region.L1 *= region.birthrate
-    region.L2 *= region.birthrate
-    region.population *= region.birthrate
+    thousandsL1 = region.L1 / 1000
+    region.L1 += thousandsL1 * region.birthrate 
+    
+    thousandsL2 = region.L2 / 1000
+    region.L2 = thousandsL2 * region.birthrate
+
 
 
 # birth rate number is - births per thousand people.

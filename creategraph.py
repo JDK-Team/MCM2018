@@ -40,3 +40,8 @@ def create_from_constants():
     edges = create_edges(constants.EDGE_IMMIGRATION)
     return Struct(regions=regs,languages=langs,edges=edges)
 
+def create_graph(names, pops, L1s, L2s, brates, drates, lnames, im_ks):
+    regs = create_regions(names, pops, L1s, L2s, brates, drates)
+    langs = create_languages(lnames)
+    edges = create_edges(im_ks)
+    return Struct(regions=regs,languages=langs,edges=edges)
