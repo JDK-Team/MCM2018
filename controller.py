@@ -40,10 +40,9 @@ def run_pass_stoc(world, passfunc):
 
 def model1_compiler_pass(world):
     run_pass_seq(world, birth)
-    logging.debug(world.regions[4])
-    #run_pass_seq(world, migration)
-    migration(world, 4)
-    logging.debug(world.regions[4])
+    #logging.debug(world.regions[4])
+    run_pass_seq(world, migration)
+    #logging.debug(world.regions[4])
     run_pass_seq(world, death)
     #run_pass_seq(world, regional)
 
@@ -93,7 +92,7 @@ def model1_test():
     #logging.debug(world)
     logging.debug(np.sum(populations(world)))
 
-    for i in range(0,1):
+    for i in range(0,5):
         model1_compiler_pass(world)
         #logging.debug(populations(world))
         #logging.debug(np.sum(populations(world)))

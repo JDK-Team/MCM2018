@@ -16,13 +16,13 @@ def migration(world, n):
         regionTo = world.regions[i]
         
         # calculate immigration
-        logging.debug("POP FROM: " + str(regionFrom.population))
-        logging.debug(regionFrom.population**A)
-        logging.debug("POP TO: " + str(regionTo.population))
-        logging.debug(k)
+        #logging.debug("POP FROM: " + str(regionFrom.population))
+        #logging.debug(regionFrom.population**A)
+        #logging.debug("POP TO: " + str(regionTo.population))
+        #logging.debug(k)
         imTotal = (regionFrom.population**A) * (regionTo.population**B) * k
 
-        logging.debug("IM" + str(imTotal))
+        #logging.debug("IM" + str(imTotal))
 
         newPopFrom = regionFrom.population - imTotal 
         newPopTo = regionTo.population + imTotal
