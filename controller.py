@@ -42,9 +42,9 @@ def run_pass_stoc(world, subs, passfunc):
 def model1_compiler_pass(world, subs):
     run_pass_seq(world, subs, birth)
     #logging.debug(world, subs.regions[4])
-    run_pass_seq(world, subs, migration)
-    #logging.debug(world.regions[4])
     run_pass_seq(world, subs, death)
+    #logging.debug(world.regions[4])
+    run_pass_seq(world, subs, migration)
     #run_pass_seq(world, subs, regional)
 
 def model1_stochastic_pass(world, subs):
@@ -84,7 +84,7 @@ def model1_test():
     drates = scalar_data('r_deathRate.csv', 2010)
     k_vals = mig_data('r_migration2010_withk.csv')
     #logging.debug('K VALUES')
-    #logging.debug(k_vals)
+    print(k_vals)
     #for i in range(0,len(k_vals)):
         #logging.debug(k_vals[i,:])
     L1s = lang_data('L1_Language_Data.csv')
@@ -93,11 +93,21 @@ def model1_test():
     #logging.debug(world)
     logging.debug(np.sum(populations(world)))
 
-    for i in range(0,5*5000):
-        model1_bd_comppass(world, 5000)
+    popRegionalErrorData = []
+    popTotalErrorData = []
+    numDivisions = 12
+    for i in range(0,40*numDivisions):
+        model1_compiler_pass(world, numDivisions)
+        if((i/numDivisions+1)%5 == 0): #every 5 years
+            projectedPops = scalar_data('projectedPopData.csv', 2010+5)
+            print(projectedPops)
+            popRegionalErrorData.append((populations(world) - projectedPops*1000)/(projectedPops*1000))
+            popTotalErrorData.append((np.sum(populations(world)) - np.sum(projectedPops*1000))/ np.sum(projectedPops*1000))
+
         #logging.debug(populations(world))
         #logging.debug(np.sum(populations(world)))
-
+    print(popRegionalErrorData)
+    print(popTotalErrorData)
     pop2015 = scalar_data('regionPops.csv', 2015)
 
     logging.info(np.sum(pop2015))
