@@ -2,14 +2,16 @@
 from Struct import Struct
 import constants
 import numpy as np
+import logging
 
 def create_regions(names, pops, L1s, L2s, brates, drates):
     regions = [Struct(name=n) for n in names]
     n = len(regions)
+    logging.debug(len(brates))
     for i in range(0,n):
         regions[i].population = pops[i]
-        regions[i].L1 = np.array(L1s[i], dtype='f')
-        regions[i].L2 = np.array(L2s[i], dtype='f')
+        regions[i].L1 = L1s[i,:]
+        regions[i].L2 = L1s[i,:]
         regions[i].birthrate = brates[i]
         regions[i].deathrate = drates[i]
     return regions

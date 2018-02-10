@@ -13,10 +13,12 @@ def mig_data(filename):
     logging.debug(mig_data)
     k_vals = mig_data[:,0].astype(np.float)
     n = len(identifiers())
+    logging.debug('{} {}'.format(n, n*n))
+    logging.debug(len(k_vals))
     if not n*n == len(k_vals):
         logging.error("mismatched dimensions in k values")
-    edge_matrix = np.transpose(np.reshape(k_vals,(n,n)))
-    logging.debug(edge_matrix.dtype)
+    edge_matrix = np.transpose(np.reshape(k_vals,(n+1,n+1)))#(n,n)))
+    logging.debug(edge_matrix.shape)
     return edge_matrix
 
 
