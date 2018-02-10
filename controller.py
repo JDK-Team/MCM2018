@@ -27,52 +27,52 @@ if args.logLevel:
 from creategraph import create_from_constants, create_graph
 # ways to run a pass
 
-def run_pass_seq(world, passfunc):
+def run_pass_seq(world, subs, passfunc):
     for i in range(0,len(world.regions)):
-        passfunc(world,i)
+        passfunc(world, subs,i)
 
-def run_pass_stoc(world, passfunc):
-    ord = list(range(0,len(world.regions)))
+def run_pass_stoc(world, subs, passfunc):
+    ord = list(range(0,len(world, subs.regions)))
     random.shuffle(ord)
     for i in ord:
-        passfunc(world, i)
+        passfunc(world, subs, i)
 
 # run an entire iteration of a model
 
-def model1_compiler_pass(world):
-    run_pass_seq(world, birth)
+def model1_compiler_pass(world, subs):
+    run_pass_seq(world, subs, birth)
+    #logging.debug(world, subs.regions[4])
+    run_pass_seq(world, subs, migration)
     #logging.debug(world.regions[4])
-    run_pass_seq(world, migration)
-    #logging.debug(world.regions[4])
-    run_pass_seq(world, death)
-    #run_pass_seq(world, regional)
+    run_pass_seq(world, subs, death)
+    #run_pass_seq(world, subs, regional)
 
-def model1_stochastic_pass(world):
-    def node_pass(world, n):
-        birth(world, n)
-        migration(world, n)
-        death(world, n)
-        #regional(world, n)
-    run_pass_stoc(world, node_pass)
+def model1_stochastic_pass(world, subs):
+    def node_pass(world, subs, n):
+        birth(world, subs, n)
+        migration(world, subs, n)
+        death(world, subs, n)
+        #regional(world, subs, n)
+    run_pass_stoc(world, subs, node_pass)
 
-def model1_bd_comppass(world):
-    run_pass_seq(world, birth)
-    run_pass_seq(world, death)
+def model1_bd_comppass(world, subs):
+    run_pass_seq(world, subs, birth)
+    run_pass_seq(world, subs, death)
 
-def model1_bd_comp_extradeath(world):
-    run_pass_seq(world, birth)
-    run_pass_seq(world, death)
-    run_pass_seq(world, death)
+def model1_bd_comp_extradeath(world, subs):
+    run_pass_seq(world, subs, birth)
+    run_pass_seq(world, subs, death)
+    run_pass_seq(world, subs, death)
 
-def model1_stoch_bd(world):
-    run_pass_stoc(world, birth)
-    run_pass_stoc(world, death)
+def model1_stoch_bd(world, subs):
+    run_pass_stoc(world, subs, birth)
+    run_pass_stoc(world, subs, death)
 
-def model1_stoch_full_bd(world):
-    def bd_upd(world, n):
-        birth(world, n)
-        death(world, n)
-    run_pass_stoc(world, bd_upd)
+def model1_stoch_full_bd(world, subs):
+    def bd_upd(world, subs, n):
+        birth(world, subs, n)
+        death(world, subs, n)
+    run_pass_stoc(world, subs, bd_upd)
 
 # run the whole model
 
@@ -93,8 +93,8 @@ def model1_test():
     #logging.debug(world)
     logging.debug(np.sum(populations(world)))
 
-    for i in range(0,5):
-        model1_compiler_pass(world)
+    for i in range(0,5*5000):
+        model1_bd_comppass(world, 5000)
         #logging.debug(populations(world))
         #logging.debug(np.sum(populations(world)))
 
@@ -112,7 +112,7 @@ def populations(world):
 def main():
     #world = create_from_constants()
     
-    #model1_compiler(world, 1)
+    #model1_compiler(world, subs, 1)
     #logging.info(world)
     model1_test()
     

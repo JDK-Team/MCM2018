@@ -4,7 +4,7 @@ import logging
 A = 0.86
 B = 0.36
 
-def migration(world, n):
+def migration(world, subs, n):
     regionFrom = world.regions[n]
 #    logging.debug(regionFrom)
     edgesOut = world.edges[n]
@@ -23,6 +23,7 @@ def migration(world, n):
         imTotal = (regionFrom.population**A) * (regionTo.population**B) * k
 
         #logging.debug("IM" + str(imTotal))
+        imTotal /= subs
 
         newPopFrom = regionFrom.population - imTotal 
         newPopTo = regionTo.population + imTotal
