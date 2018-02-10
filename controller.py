@@ -22,6 +22,7 @@ parser.add_argument("-l",
 args = parser.parse_args()
 if args.logLevel:
     logging.basicConfig(level=getattr(logging, args.logLevel))
+    #logging.basicConfig(level=logging.DEBUG)
 
 from creategraph import create_from_constants, create_graph
 # ways to run a pass
@@ -82,12 +83,12 @@ def model1_test():
     brates = scalar_data('r_birthRate.csv', 2010)
     drates = scalar_data('r_deathRate.csv', 2010)
     k_vals = mig_data('r_migration2010_withk.csv')
-    logging.debug('K VALUES')
-    logging.debug(k_vals)
+    #logging.debug('K VALUES')
+    #logging.debug(k_vals)
     #for i in range(0,len(k_vals)):
         #logging.debug(k_vals[i,:])
     L1s = lang_data('L1_Language_Data.csv')
-    L2s = lang_data('L1_Language_Data.csv')
+    L2s = lang_data('L2_Language_Data.csv')
     world = create_graph(names, pops, L1s, L2s, brates, drates, language_names, k_vals)
     #logging.debug(world)
     logging.debug(np.sum(populations(world)))
