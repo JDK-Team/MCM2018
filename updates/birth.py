@@ -9,3 +9,5 @@ def birth(world, n):
     region.L2 *= region.birthrate
     region.population *= region.birthrate
 
+
+# birth rate number is - births per thousand people.

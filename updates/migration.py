@@ -1,6 +1,6 @@
 
-A = 0.32
-B = 0.86
+A = 0.86
+B = 0.36
 
 def migration(world, n):
     regionFrom = world.regions[n]
@@ -13,7 +13,7 @@ def migration(world, n):
         regionTo = world.regions[i]
         
         # calculate immigration
-        imTotal = (regionTo.population**A) * (regionFrom.population**B) * k
+        imTotal = (regionFrom.population**A) * (regionTo.population**B) * k
 
         newPopFrom = regionFrom.population - imTotal 
         newPopTo = regionTo.population + imTotal
