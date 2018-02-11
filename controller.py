@@ -84,7 +84,7 @@ def measuringStick():
     drates = scalar_data('r_deathRate.csv', 2010)
     k_vals = mig_data('actual_r_migration2010_withk.csv')
     #logging.debug('K VALUES')
-    print(k_vals)
+    #print(k_vals)
     #for i in range(0,len(k_vals)):
         #logging.debug(k_vals[i,:])
     L1s = lang_data('L1_Language_Data.csv')
@@ -110,7 +110,7 @@ def model1_test():
     drates = scalar_data('r_deathRate.csv', 2010)
     k_vals = mig_data('actual_r_migration2000_withk.csv')
     #logging.debug('K VALUES')
-    print(k_vals)
+    #print(k_vals)
     #for i in range(0,len(k_vals)):
         #logging.debug(k_vals[i,:])
     L1s = lang_data('L1_Language_Data.csv')
@@ -122,12 +122,12 @@ def model1_test():
 
     popRegionalErrorData = []
     popTotalErrorData = []
-    numDivisions = 1
-    for i in range(0,5*numDivisions):
+    numDivisions = 12
+    for i in range(0,40*numDivisions):
         model1_compiler_pass(world, numDivisions)
         if((i/numDivisions+1)%5 == 0): #every 5 years
             projectedPops = scalar_data('projectedPopData.csv', 2010+5)
-            print(projectedPops)
+            #print(projectedPops)
             popRegionalErrorData.append((populations(world) - projectedPops*1000)/(projectedPops*1000))
             popTotalErrorData.append((np.sum(populations(world)) - np.sum(projectedPops*1000))/ np.sum(projectedPops*1000))
 
