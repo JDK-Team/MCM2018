@@ -47,6 +47,11 @@ def model1_compiler_pass(world, subs):
     run_pass_seq(world, subs, migration)
     #run_pass_seq(world, subs, regional)
 
+def model1_compiler_pass(world, subs):
+    run_pass_seq(world, subs, birth_infl)
+    run_pass_seq(world, subs, death)
+    run_pass_seq(world, subs, migration_infl)
+
 def model1_stochastic_pass(world, subs):
     def node_pass(world, subs, n):
         birth(world, subs, n)
@@ -80,6 +85,12 @@ def model1_5_5yearpass(world, subs, startyear):
     run_pass_seq(world, subs, lambda world,subs,n: update_birth(world, startyear+5, n))
     run_pass_seq(world, subs, lambda world,subs,n: update_death(world, startyear+5, n))
 
+def model2_5yearpass(world, subs, startyear):
+    for i in range(0,5*subs):
+        logging.debug("YEAR " + str(i))
+        model2_compiler_pass(world, subs)
+    run_pass_seq(world, subs, lambda world,subs,n: update_birth(world, startyear+5, n))
+    run_pass_seq(world, subs, lambda world,subs,n: update_death(world, startyear+5, n))
 
 # run the whole model
 
@@ -204,6 +215,58 @@ def model1_5_percenterror():
 
     #logging.info(pop2015 - populations(world))
     #logging.debug([usa for usa in world.regions if usa.name == 'USA'])
+# get statistics
+def populations(world):
+    return np.array([reg.population for reg in world.regions])
+
+def model2_percenterror():
+    names = identifiers()
+    language_names = lang_names('L1_Language_Data.csv')
+    pops = scalar_data('regionPops.csv', 2010)
+    brates = scalar_data('r_birthRate.csv', 2010)
+    drates = scalar_data('r_deathRate.csv', 2010)
+    k_vals = mig_data('actual_r_migration2000_withk.csv')
+    #logging.debug('K VALUES')
+    #print(k_vals)
+    #for i in range(0,len(k_vals)):
+        #logging.debug(k_vals[i,:])
+    L1s = lang_data('L1_Language_Data.csv')
+    #logging.debug("LANG DATA: " + str(L1s))
+    L2s = lang_data('L2_Language_Data.csv')
+    world = create_graph(names, pops, L1s, L2s, brates, drates, language_names, k_vals)
+    #logging.debug(world)
+    #logging.debug(np.sum(populations(world)))
+
+
+    logging.debug([cb for cb in world.regions if cb.name == 'Caribbean'])
+    popRegionalErrorData = []
+    popTotalErrorData = []
+    numDivisions = 1
+    num5yearChuncks = 8
+    for i in range(0,num5yearChuncks):
+        model2_5yearpass(world, numDivisions, 2010)
+        projectedPops = scalar_data('projectedPopData.csv', 2010+5*i)
+        #print(projectedPops)
+        popRegionalErrorData.append(((populations(world) - projectedPops*1000)/(projectedPops*1000)))
+        popTotalErrorData.append((np.sum(populations(world)) - np.sum(projectedPops*1000))/ np.sum(projectedPops*1000))
+
+        #logging.debug(populations(world))
+        #logging.debug(np.sum(populations(world)))
+    print(popRegionalErrorData)
+    print(popTotalErrorData)
+    popRegionalErrorData = np.transpose(np.asarray(popRegionalErrorData))
+    #np.savetxt("popRegionalError_12.csv", popRegionalErrorData, delimiter=",")
+    np.savetxt("L1_1_2050.csv", L1s, delimiter=",")
+
+    #pop2015 = scalar_data('regionPops.csv', 2015)
+
+    #logging.info(np.sum(pop2015))
+    #logging.info(np.sum(populations(world)))
+    #logging.info(populations(world))
+
+    #logging.info(pop2015 - populations(world))
+    #logging.debug([usa for usa in world.regions if usa.name == 'USA'])
+
 # get statistics
 def populations(world):
     return np.array([reg.population for reg in world.regions])
