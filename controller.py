@@ -85,8 +85,8 @@ def model1_stoch_full_bd(world, subs):
 
 def model1_5_5yearpass(world, subs, startyear):
     for i in range(0,5*subs):
-        model1_bd_combined_comppass(world, subs)
-        #model1_stochastic_pass(world, subs)
+        #model1_bd_combined_comppass(world, subs)
+        model1_stochastic_pass(world, subs)
     run_pass_seq(world, subs, lambda world,subs,n: update_birth(world, startyear+5, n))
     run_pass_seq(world, subs, lambda world,subs,n: update_death(world, startyear+5, n))
 
@@ -169,8 +169,24 @@ def model1_test():
     #logging.info(pop2015 - populations(world))
     #logging.debug([usa for usa in world.regions if usa.name == 'USA'])
 
-def writecsv():
-    return 0
+def saveLang(languageData, filename):
+    top = ["country", "Arabic", "Bengali", "Catonese", "English", "French", "German", "Hausa", "Hindustani", "Italian",
+           "Japonese", "Javanese", "Korean", "Malay", "Mandarin_Chinese", "Marathi", "Persian", "Portuguese", "Punjabi",
+           "Russian", "Spanish", "Swahili", "Tamil", "Telugu", "Turkish", "Vietnamese", "Wu_Chinese"]
+    regions = ["Angola", "ArabicMiddleEast", "ArabicWestAfrica", "AustrailiaNewZealand", "BalkanPeninsula", "Brazil",
+               "BritishIsles", "Canada", "Caribbean", "CentralAmerica", "ChineseAsia", "EastAfrica", "EasternEurope",
+               "FrenchEurope", "FrenchWestAfrica", "GermanEurope", "IndianSubcontinent", "ItalianEurope", "Japan",
+               "Korea", "Madagascar", "Melanesia", "MiddleAfrica", "NordicCountries", "NorthAfrica", "PersianMiddleEast",
+               "Portugal", "RussianAsia", "Somalia", "SoutheastAsia", "SouthernAfrica", "Spain", "SpanishSouthAmerica",
+               "Tajikistan", "TurkishMiddleEast", "USA"]
+    lDataList = languageData.tolist()
+    with open(filename, "w") as csv_file:
+        writer = csv.writer(csv_file, delimiter=',')
+        writer.writerow(top)
+        for index in range(0, len(regions)):
+            lDataList[index].insert(0, regions[index])
+            writer.writerow(lDataList[index])
+
 
 def model1_5_percenterror():
     names = identifiers()
@@ -211,7 +227,9 @@ def model1_5_percenterror():
     print(popTotalErrorData)
     popRegionalErrorData = np.transpose(np.asarray(popRegionalErrorData))
     #np.savetxt("prop_popRegionalError_10000.csv", popRegionalErrorData, delimiter=",")
-    np.savetxt("L1_1_2070.csv", L1s, delimiter=",")
+    #np.savetxt("L1_1_2070.csv", L1s, delimiter=",")
+    saveLang(L1s, "L1_1_2070.csv")
+    saveLang(L2s, "L2_1_2070.csv")
 
     #pop2015 = scalar_data('regionPops.csv', 2015)
 
@@ -225,24 +243,6 @@ def model1_5_percenterror():
 # get statistics
 def populations(world):
     return np.array([reg.population for reg in world.regions])
-
-def saveLang(languageData, filename):
-    top = ["country", "Arabic", "Bengali", "Catonese", "English", "French", "German", "Hausa", "Hindustani", "Italian",
-           "Japonese", "Javanese", "Korean", "Malay", "Mandarin Chinese", "Marathi", "Persian", "Portuguese", "Punjabi",
-           "Russian", "Spanish", "Swahili", "Tamil", "Telugu", "Turkish", "Vietnamese", "Wu Chinese"]
-    regions = ["Angola", "ArabicMiddleEast", "ArabicWestAfrica", "AustrailiaNewZealand", "BalkanPeninsula", "Brazil",
-               "BritishIsles", "Canada", "Caribbean", "CentralAmerica", "ChineseAsia", "EastAfrica", "EasternEurope",
-               "FrenchEurope", "FrenchWestAfrica", "GermanEurope", "IndianSubcontinent", "ItalianEurope", "Japan",
-               "Korea", "Madagascar", "Melanesia", "MiddleAfrica", "NordicCountries", "NorthAfrica", "PersianMiddleEast",
-               "Portugal", "RussianAsia", "Somalia", "SoutheastAsia", "SouthernAfrica", "Spain", "SpanishSouthAmerica",
-               "Tajikistan", "TurkishMiddleEast", "USA"]
-    lDataList = languageData.tolist()
-    with open(filename, "w") as csv_file:
-        writer = csv.writer(csv_file, delimiter=',')
-        writer.writerow(top)
-        for index in range(0, len(regions)):
-            lDataList[index].insert(0, regions[index])
-            writer.writerow(lDataList[index])
 
 
 def model2_percenterror():
@@ -282,8 +282,8 @@ def model2_percenterror():
     #print(popTotalErrorData)
     popRegionalErrorData = np.transpose(np.asarray(popRegionalErrorData))
     #np.savetxt("popRegionalError_12.csv", popRegionalErrorData, delimiter=",")
-    saveLang(L1s, "L1_1_2070.csv")
-    saveLang(L2s, "L2_1_2070.csv")
+    saveLang(L1s, "L1_2_2070.csv")
+    saveLang(L2s, "L2_2_2070.csv")
     #np.savetxt("L1_1_2070.csv", L1s, delimiter=",")
     #np.savetxt("L2_1_2070.csv", L2s, delimiter=",")
     
@@ -310,7 +310,7 @@ def main():
     #model1_compiler(world, subs, 1)
     #logging.info(world)
     #model1_test()
-    #model1_5_percenterror()
-    model2_percenterror()
+    model1_5_percenterror()
+    #model2_percenterror()
 
 main()
