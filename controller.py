@@ -152,6 +152,9 @@ def model1_test():
     #logging.info(pop2015 - populations(world))
     #logging.debug([usa for usa in world.regions if usa.name == 'USA'])
 
+def writecsv():
+    return 0
+
 def model1_5_percenterror():
     names = identifiers()
     language_names = lang_names('L1_Language_Data.csv')
@@ -172,20 +175,24 @@ def model1_5_percenterror():
 
     popRegionalErrorData = []
     popTotalErrorData = []
-    numDivisions = 12
+    numDivisions = 1
     num5yearChuncks = 8
     for i in range(0,num5yearChuncks):
         model1_5_5yearpass(world, numDivisions, 2010)
         projectedPops = scalar_data('projectedPopData.csv', 2010+5*i)
         #print(projectedPops)
-        popRegionalErrorData.append((populations(world) - projectedPops*1000)/(projectedPops*1000))
+        popRegionalErrorData.append(((populations(world) - projectedPops*1000)/(projectedPops*1000)))
         popTotalErrorData.append((np.sum(populations(world)) - np.sum(projectedPops*1000))/ np.sum(projectedPops*1000))
 
         #logging.debug(populations(world))
         #logging.debug(np.sum(populations(world)))
     print(popRegionalErrorData)
     print(popTotalErrorData)
-    pop2015 = scalar_data('regionPops.csv', 2015)
+    popRegionalErrorData = np.transpose(np.asarray(popRegionalErrorData))
+    #np.savetxt("popRegionalError_12.csv", popRegionalErrorData, delimiter=",")
+    np.savetxt("L1_1_2050.csv", L1s, delimiter=",")
+
+    #pop2015 = scalar_data('regionPops.csv', 2015)
 
     #logging.info(np.sum(pop2015))
     #logging.info(np.sum(populations(world)))
