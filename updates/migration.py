@@ -60,6 +60,7 @@ def migration(world, subs, n):
         regionFrom.L1 -= L1_moved
         #regionFrom.L1[regionFrom.L1 < 0] = 0
         regionTo.L1 += L1_moved
+        #regionTo.L1[regionTo.L1 < 0] = 0
         #if regionFrom.name == 'Caribbean':
             #logging.debug("L1 AFTER: " + str(regionFrom.L1))
         #if regionTo.name == 'Caribbean':
