@@ -2,15 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="52bee91c-47b1-4d28-9304-47e2371db7db" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/popRegionalError.R" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/popRegionalError.xlsx" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/L1_1_2050.csv" afterPath="$PROJECT_DIR$/L1_1_2050.csv" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controller.py" afterPath="$PROJECT_DIR$/controller.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/popRegionalError_1.csv" afterPath="$PROJECT_DIR$/popRegionalError_1.csv" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data_retrival/import_mig.py" afterPath="$PROJECT_DIR$/data_retrival/import_mig.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/popRegionalError_12.csv" afterPath="$PROJECT_DIR$/popRegionalError_12.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/popRegionalError_365.csv" afterPath="$PROJECT_DIR$/popRegionalError_365.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/updates/update_birth.py" afterPath="$PROJECT_DIR$/updates/update_birth.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/updates/update_death.py" afterPath="$PROJECT_DIR$/updates/update_death.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/updates/migration.py" afterPath="$PROJECT_DIR$/updates/migration.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -28,8 +24,8 @@
       <file leaf-file-name="controller.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/controller.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="193" column="42" lean-forward="true" selection-start-line="193" selection-start-column="42" selection-end-line="193" selection-end-column="42" />
+            <state relative-caret-position="-1770">
+              <caret line="77" column="29" lean-forward="false" selection-start-line="77" selection-start-column="29" selection-end-line="77" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -58,8 +54,8 @@
       <file leaf-file-name="migration.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/updates/migration.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="387">
-              <caret line="39" column="61" lean-forward="true" selection-start-line="39" selection-start-column="61" selection-end-line="39" selection-end-column="61" />
+            <state relative-caret-position="417">
+              <caret line="41" column="38" lean-forward="true" selection-start-line="41" selection-start-column="38" selection-end-line="41" selection-end-column="38" />
               <folding />
             </state>
           </provider>
@@ -455,8 +451,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/updates/migration.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="387">
-          <caret line="39" column="61" lean-forward="true" selection-start-line="39" selection-start-column="61" selection-end-line="39" selection-end-column="61" />
+        <state relative-caret-position="417">
+          <caret line="41" column="38" lean-forward="true" selection-start-line="41" selection-start-column="38" selection-end-line="41" selection-end-column="38" />
           <folding />
         </state>
       </provider>
@@ -487,8 +483,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/controller.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="193" column="42" lean-forward="true" selection-start-line="193" selection-start-column="42" selection-end-line="193" selection-end-column="42" />
+        <state relative-caret-position="-1770">
+          <caret line="77" column="29" lean-forward="false" selection-start-line="77" selection-start-column="29" selection-end-line="77" selection-end-column="29" />
           <folding />
         </state>
       </provider>

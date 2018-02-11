@@ -169,12 +169,14 @@ def model1_5_percenterror():
     #for i in range(0,len(k_vals)):
         #logging.debug(k_vals[i,:])
     L1s = lang_data('L1_Language_Data.csv')
+    #logging.debug("LANG DATA: " + str(L1s))
     L2s = lang_data('L2_Language_Data.csv')
     world = create_graph(names, pops, L1s, L2s, brates, drates, language_names, k_vals)
     #logging.debug(world)
     #logging.debug(np.sum(populations(world)))
 
 
+    logging.debug([cb for cb in world.regions if cb.name == 'Caribbean'])
     popRegionalErrorData = []
     popTotalErrorData = []
     numDivisions =10000

@@ -11,6 +11,7 @@ def mig_data(filename):
     title_row = mig_table[0]
     mig_data = np.array(mig_table[1:])
     k_vals = mig_data[:,1].astype(np.float)
+    k_vals = np.absolute(k_vals)
     n = len(identifiers())
     logging.debug(len(k_vals))
     if not n*n == len(k_vals):
