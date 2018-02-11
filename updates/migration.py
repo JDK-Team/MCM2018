@@ -34,13 +34,13 @@ def migration(world, subs, n):
         #logging.debug("IM" + str(imTotal))
         imTotal /= subs
 
-        newPopFrom = regionFrom.population - imTotal 
-        newPopTo = regionTo.population + imTotal
+        regionFrom.population = regionFrom.population - imTotal 
+        regionTo.population = regionTo.population + imTotal
 
-        regionFrom.L1 *= (newPopFrom / regionFrom.population)
-        regionFrom.L2 *= (newPopFrom / regionFrom.population)
-        regionFrom.population = newPopFrom
+        L1moved = imTotal * (regionFrom.L1 / np.sum(regionFrom.L1))
+        regionFrom.L1 -= L1Moved
+        regionTo.L1 += L1Moved
 
-        regionTo.L1 *= (newPopTo / regionTo.population)
-        regionTo.L2 *= (newPopTo / regionTo.population)
-        regionTo.population = newPopTo
+        L2moved = imTotal * (regionFrom.L2 / np.sum(regionFrom.L2))
+        regionFrom.L2 -= L2Moved
+        regionTo.L2 += L2moved
