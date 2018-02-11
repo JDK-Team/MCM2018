@@ -11,7 +11,7 @@ def create_regions(names, pops, L1s, L2s, brates, drates):
     for i in range(0,n):
         regions[i].population = pops[i]
         regions[i].L1 = L1s[i,:]
-        regions[i].L2 = L1s[i,:]
+        regions[i].L2 = L2s[i,:]
         regions[i].birthrate = brates[i]
         regions[i].deathrate = drates[i]
     return regions

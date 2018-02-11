@@ -2,15 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="52bee91c-47b1-4d28-9304-47e2371db7db" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/Power_Language_Index.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/updates/birth_infl.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/updates/influence.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/updates/migration_infl.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/L2_1_2050.csv" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/updates/birth_and_death.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/L1_1_2050.csv" afterPath="$PROJECT_DIR$/L1_1_2050.csv" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controller.py" afterPath="$PROJECT_DIR$/controller.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data_retrival/import_mig.py" afterPath="$PROJECT_DIR$/data_retrival/import_mig.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/creategraph.py" afterPath="$PROJECT_DIR$/creategraph.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/prop_popRegionalError_10000.csv" afterPath="$PROJECT_DIR$/prop_popRegionalError_10000.csv" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/updates/__init__.py" afterPath="$PROJECT_DIR$/updates/__init__.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/updates/migration.py" afterPath="$PROJECT_DIR$/updates/migration.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/updates/migration_infl.py" afterPath="$PROJECT_DIR$/updates/migration_infl.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -25,11 +26,21 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="controller.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="controller.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controller.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1990">
-              <caret line="90" column="14" lean-forward="false" selection-start-line="90" selection-start-column="14" selection-end-line="90" selection-end-column="14" />
+            <state relative-caret-position="4005">
+              <caret line="275" column="37" lean-forward="false" selection-start-line="275" selection-start-column="37" selection-end-line="275" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="L1_1_2050.csv" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/L1_1_2050.csv">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="525">
+              <caret line="35" column="649" lean-forward="false" selection-start-line="35" selection-start-column="649" selection-end-line="35" selection-end-column="649" />
               <folding />
             </state>
           </provider>
@@ -60,7 +71,9 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="600">
               <caret line="41" column="38" lean-forward="false" selection-start-line="41" selection-start-column="38" selection-end-line="41" selection-end-column="38" />
-              <folding />
+              <folding>
+                <marker date="1518383015842" expanded="true" signature="2252:2493" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -123,6 +136,7 @@
         <option value="$PROJECT_DIR$/updates/update_death.py" />
         <option value="$PROJECT_DIR$/updates/update_birth.py" />
         <option value="$PROJECT_DIR$/controller.py" />
+        <option value="$PROJECT_DIR$/L1_1_2050.csv" />
       </list>
     </option>
   </component>
@@ -441,7 +455,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="600">
           <caret line="41" column="38" lean-forward="true" selection-start-line="41" selection-start-column="38" selection-end-line="41" selection-end-column="38" />
-          <folding />
+          <folding>
+            <marker date="1518383015842" expanded="true" signature="2252:2493" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -520,7 +536,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="600">
           <caret line="41" column="38" lean-forward="false" selection-start-line="41" selection-start-column="38" selection-end-line="41" selection-end-column="38" />
-          <folding />
+          <folding>
+            <marker date="1518383015842" expanded="true" signature="2252:2493" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -549,8 +567,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/controller.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1990">
-          <caret line="90" column="14" lean-forward="false" selection-start-line="90" selection-start-column="14" selection-end-line="90" selection-end-column="14" />
+        <state relative-caret-position="4005">
+          <caret line="275" column="37" lean-forward="false" selection-start-line="275" selection-start-column="37" selection-end-line="275" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/L1_1_2050.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="35" column="649" lean-forward="false" selection-start-line="35" selection-start-column="649" selection-end-line="35" selection-end-column="649" />
           <folding />
         </state>
       </provider>

@@ -47,7 +47,7 @@ def model1_compiler_pass(world, subs):
     run_pass_seq(world, subs, migration)
     #run_pass_seq(world, subs, regional)
 
-def model1_compiler_pass(world, subs):
+def model2_compiler_pass(world, subs):
     run_pass_seq(world, subs, birth_infl)
     run_pass_seq(world, subs, death)
     run_pass_seq(world, subs, migration_infl)
@@ -63,6 +63,9 @@ def model1_stochastic_pass(world, subs):
 def model1_bd_comppass(world, subs):
     run_pass_seq(world, subs, birth)
     run_pass_seq(world, subs, death)
+
+def model1_bd_combined_comppass(world, subs):
+    run_pass_seq(world, subs, birth_and_death)
 
 def model1_bd_comp_extradeath(world, subs):
     run_pass_seq(world, subs, birth)
@@ -81,7 +84,8 @@ def model1_stoch_full_bd(world, subs):
 
 def model1_5_5yearpass(world, subs, startyear):
     for i in range(0,5*subs):
-        model1_stochastic_pass(world, subs)
+        model1_bd_combined_comppass(world, subs)
+        #model1_stochastic_pass(world, subs)
     run_pass_seq(world, subs, lambda world,subs,n: update_birth(world, startyear+5, n))
     run_pass_seq(world, subs, lambda world,subs,n: update_death(world, startyear+5, n))
 
@@ -143,6 +147,7 @@ def model1_test():
     numDivisions = 12
     for i in range(0,40*numDivisions):
         model1_compiler_pass(world, numDivisions)
+        #model1_bd_comppass(world, numDivisions)
         year = i/numDivisions + 1
         if(year%5 == 0): #every 5 years
             projectedPops = scalar_data('projectedPopData.csv', 2010+int(year))
@@ -212,7 +217,8 @@ def model1_5_percenterror():
     #logging.info(np.sum(pop2015))
     #logging.info(np.sum(populations(world)))
     #logging.info(populations(world))
-
+    
+    logging.info([reg.L2 for reg in world.regions])
     #logging.info(pop2015 - populations(world))
     #logging.debug([usa for usa in world.regions if usa.name == 'USA'])
 # get statistics
@@ -257,6 +263,11 @@ def model2_percenterror():
     popRegionalErrorData = np.transpose(np.asarray(popRegionalErrorData))
     #np.savetxt("popRegionalError_12.csv", popRegionalErrorData, delimiter=",")
     np.savetxt("L1_1_2050.csv", L1s, delimiter=",")
+    np.savetxt("L2_1_2050.csv", L2s, delimiter=",")
+    
+    print(world.regions)
+
+    print(L2s)
 
     #pop2015 = scalar_data('regionPops.csv', 2015)
 
@@ -277,6 +288,7 @@ def main():
     #model1_compiler(world, subs, 1)
     #logging.info(world)
     #model1_test()
-    model1_5_percenterror()
+    #model1_5_percenterror()
+    model2_percenterror()
 
 main()
