@@ -8,20 +8,29 @@ def migration(world, subs, n):
     regionFrom = world.regions[n]
 #    logging.debug(regionFrom)
     edgesOut = world.edges[n]
-    for i in range(0,n):
+
+    for i in range(0,len(world.regions)):
         k = edgesOut[i].immigration
+        regionTo = world.regions[i]
         if (k == 0):
+            if regionFrom.name == 'USA' or regionTo.name == 'USA':
+                logging.debug('SKIPPED: ' + regionFrom.name + ' TO ' + regionTo.name)
             continue
         
-        regionTo = world.regions[i]
         
+        if regionFrom.name == 'USA' or regionTo.name == 'USA':
+            logging.debug(regionFrom.population)
+
+            logging.debug("POP FROM " + regionFrom.name + ": " + str(regionFrom.population))
+            #logging.debug(regionFrom.population**A)
+            logging.debug("POP TO " + regionTo.name + ": "  + str(regionTo.population))
+            logging.debug("K: " + str(k))
+
         # calculate immigration
-        #logging.debug("POP FROM: " + str(regionFrom.population))
-        #logging.debug(regionFrom.population**A)
-        #logging.debug("POP TO: " + str(regionTo.population))
-        #logging.debug(k)
         imTotal = (regionFrom.population**A) * (regionTo.population**B) * k
 
+        if regionFrom.name == 'USA' or regionTo.name == 'USA':
+            logging.debug("IMTOTAL: " + str(imTotal))
         #logging.debug("IM" + str(imTotal))
         imTotal /= subs
 
