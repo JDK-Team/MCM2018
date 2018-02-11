@@ -179,7 +179,7 @@ def model1_5_percenterror():
     logging.debug([cb for cb in world.regions if cb.name == 'Caribbean'])
     popRegionalErrorData = []
     popTotalErrorData = []
-    numDivisions =10000
+    numDivisions =12
     num5yearChuncks = 12
     for i in range(0,num5yearChuncks):
         model1_5_5yearpass(world, numDivisions, 2010)
@@ -193,8 +193,8 @@ def model1_5_percenterror():
     print(popRegionalErrorData)
     print(popTotalErrorData)
     popRegionalErrorData = np.transpose(np.asarray(popRegionalErrorData))
-    np.savetxt("prop_popRegionalError_10000.csv", popRegionalErrorData, delimiter=",")
-    #np.savetxt("L1_1_2050.csv", L1s, delimiter=",")
+    #np.savetxt("prop_popRegionalError_10000.csv", popRegionalErrorData, delimiter=",")
+    np.savetxt("L1_1_2070.csv", L1s, delimiter=",")
 
     #pop2015 = scalar_data('regionPops.csv', 2015)
 
