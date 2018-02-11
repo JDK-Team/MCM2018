@@ -82,7 +82,7 @@ def measuringStick():
     pops = scalar_data('regionPops.csv', 2010)
     brates = scalar_data('r_birthRate.csv', 2010)
     drates = scalar_data('r_deathRate.csv', 2010)
-    k_vals = mig_data('r_migration2010_withk.csv')
+    k_vals = mig_data('actual_r_migration2010_withk.csv')
     #logging.debug('K VALUES')
     print(k_vals)
     #for i in range(0,len(k_vals)):
