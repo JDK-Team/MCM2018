@@ -23,14 +23,17 @@ def migration_infl(world, subs, n):
         regionTo.population = regionTo.population + imTotal
 
         L1_moved = imTotal * (regionFrom.L1 / regionFrom.population)
-        regionFrom.L1 -= L1_moved
+        if 0 < k:
+            regionFrom.L1 -= L1_moved
+
         regionTo.L1 += L1_moved
 
         regionFrom.L1[regionFrom.L1 < 0] = 0
         regionTo.L1[regionTo.L1 < 0] = 0
 
         L2_moved = imTotal * (regionFrom.L2 / regionFrom.population)
-        regionFrom.L2 -= L2_moved
+        if 0 < k:
+            regionFrom.L2 -= L2_moved
         regionTo.L2 += L2_moved
 
         regionTo.L2 += imTotal * influence(regionTo)
