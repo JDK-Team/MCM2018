@@ -5,6 +5,7 @@ from data_retrival import *
 
 import random
 import numpy as np
+import csv
 
 #logging
 import argparse
@@ -225,6 +226,24 @@ def model1_5_percenterror():
 def populations(world):
     return np.array([reg.population for reg in world.regions])
 
+def saveLang(languageData, filename):
+    top = ["country", "Arabic", "Bengali", "Catonese", "English", "French", "German", "Hausa", "Hindustani", "Italian",
+           "Japonese", "Javanese", "Korean", "Malay", "Mandarin Chinese", "Marathi", "Persian", "Portuguese", "Punjabi",
+           "Russian", "Spanish", "Swahili", "Tamil", "Telugu", "Turkish", "Vietnamese", "Wu Chinese"]
+    regions = ["Angola", "ArabicMiddleEast", "ArabicWestAfrica", "AustrailiaNewZealand", "BalkanPeninsula", "Brazil",
+               "BritishIsles", "Canada", "Caribbean", "CentralAmerica", "ChineseAsia", "EastAfrica", "EasternEurope",
+               "FrenchEurope", "FrenchWestAfrica", "GermanEurope", "IndianSubcontinent", "ItalianEurope", "Japan",
+               "Korea", "Madagascar", "Melanesia", "MiddleAfrica", "NordicCountries", "NorthAfrica", "PersianMiddleEast",
+               "Portugal", "RussianAsia", "Somalia", "SoutheastAsia", "SouthernAfrica", "Spain", "SpanishSouthAmerica",
+               "Tajikistan", "TurkishMiddleEast", "USA"]
+    lDataList = languageData.tolist()
+    with open(filename, "w") as csv_file:
+        writer = csv.writer(csv_file, delimiter=',')
+        writer.writerow(top)
+        for index in range(0, len(regions)):
+            lDataList[index].insert(0, regions[index])
+            writer.writerow(lDataList[index])
+
 
 def model2_percenterror():
     names = identifiers()
@@ -248,8 +267,8 @@ def model2_percenterror():
     logging.debug([cb for cb in world.regions if cb.name == 'Caribbean'])
     popRegionalErrorData = []
     popTotalErrorData = []
-    numDivisions = 1
-    num5yearChuncks = 8
+    numDivisions = 12
+    num5yearChuncks = 12
     for i in range(0,num5yearChuncks):
         model2_5yearpass(world, numDivisions, 2010)
         projectedPops = scalar_data('projectedPopData.csv', 2010+5*i)
@@ -259,16 +278,18 @@ def model2_percenterror():
 
         #logging.debug(populations(world))
         #logging.debug(np.sum(populations(world)))
-    print(popRegionalErrorData)
-    print(popTotalErrorData)
+    #print(popRegionalErrorData)
+    #print(popTotalErrorData)
     popRegionalErrorData = np.transpose(np.asarray(popRegionalErrorData))
     #np.savetxt("popRegionalError_12.csv", popRegionalErrorData, delimiter=",")
-    np.savetxt("L1_1_2050.csv", L1s, delimiter=",")
-    np.savetxt("L2_1_2050.csv", L2s, delimiter=",")
+    saveLang(L1s, "L1_1_2070.csv")
+    saveLang(L2s, "L2_1_2070.csv")
+    #np.savetxt("L1_1_2070.csv", L1s, delimiter=",")
+    #np.savetxt("L2_1_2070.csv", L2s, delimiter=",")
     
-    print(world.regions)
+    #print(world.regions)
 
-    print(L2s)
+    #print(L2s)
 
     #pop2015 = scalar_data('regionPops.csv', 2015)
 
