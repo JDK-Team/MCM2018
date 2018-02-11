@@ -76,6 +76,7 @@ def model1_stoch_full_bd(world, subs):
 
 def model1_5_5yearpass(world, subs, startyear):
     for i in range(0,5*subs):
+        logging.debug("YEAR " + str(i))
         model1_compiler_pass(world, subs)
     run_pass_seq(world, subs, lambda world,subs,n: update_birth(world, startyear+5, n))
     run_pass_seq(world, subs, lambda world,subs,n: update_death(world, startyear+5, n))
@@ -167,16 +168,18 @@ def model1_5_percenterror():
     #for i in range(0,len(k_vals)):
         #logging.debug(k_vals[i,:])
     L1s = lang_data('L1_Language_Data.csv')
+    #logging.debug("LANG DATA: " + str(L1s))
     L2s = lang_data('L2_Language_Data.csv')
     world = create_graph(names, pops, L1s, L2s, brates, drates, language_names, k_vals)
     #logging.debug(world)
     #logging.debug(np.sum(populations(world)))
 
 
+    logging.debug([cb for cb in world.regions if cb.name == 'Caribbean'])
     popRegionalErrorData = []
     popTotalErrorData = []
     numDivisions = 1
-    num5yearChuncks = 8
+    num5yearChuncks = 1#8
     for i in range(0,num5yearChuncks):
         model1_5_5yearpass(world, numDivisions, 2010)
         projectedPops = scalar_data('projectedPopData.csv', 2010+5*i)
