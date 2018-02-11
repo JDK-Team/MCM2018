@@ -57,16 +57,19 @@ def migration(world, subs, n):
         #    logging.debug(L1_moved)
         #if regionTo.name == 'Caribbean':
         #    logging.debug(L1_moved)
-        regionFrom.L1 -= L1_moved
-        #regionFrom.L1[regionFrom.L1 < 0] = 0
+        if 0 < k:
+            regionFrom.L1 -= L1_moved
         regionTo.L1 += L1_moved
-        #regionTo.L1[regionTo.L1 < 0] = 0
+        regionFrom.L1[regionFrom.L1 < 0] = 0
+        regionTo.L1[regionTo.L1 < 0] = 0
         #if regionFrom.name == 'Caribbean':
             #logging.debug("L1 AFTER: " + str(regionFrom.L1))
         #if regionTo.name == 'Caribbean':
             #logging.debug("L1 AFTER: " + str(regionTo.L1))
 
         L2_moved = imTotal * (regionFrom.L2 / regionFrom.population)#np.sum(regionFrom.L2))
-        regionFrom.L2 -= L2_moved
-        #regionFrom.L2[regionFrom.L2 < 0] = 0
+        if 0 < k:
+            regionFrom.L2 -= L2_moved
+        regionFrom.L2[regionFrom.L2 < 0] = 0
         regionTo.L2 += L2_moved
+        regionTo.L2[regionTo.L2 < 0] = 0

@@ -225,6 +225,7 @@ def model1_5_percenterror():
 def populations(world):
     return np.array([reg.population for reg in world.regions])
 
+
 def model2_percenterror():
     names = identifiers()
     language_names = lang_names('L1_Language_Data.csv')
