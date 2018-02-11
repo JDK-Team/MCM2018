@@ -47,7 +47,7 @@ def model1_compiler_pass(world, subs):
     run_pass_seq(world, subs, migration)
     #run_pass_seq(world, subs, regional)
 
-def model1_compiler_pass(world, subs):
+def model2_compiler_pass(world, subs):
     run_pass_seq(world, subs, birth_infl)
     run_pass_seq(world, subs, death)
     run_pass_seq(world, subs, migration_infl)
@@ -257,6 +257,11 @@ def model2_percenterror():
     popRegionalErrorData = np.transpose(np.asarray(popRegionalErrorData))
     #np.savetxt("popRegionalError_12.csv", popRegionalErrorData, delimiter=",")
     np.savetxt("L1_1_2050.csv", L1s, delimiter=",")
+    np.savetxt("L2_1_2050.csv", L2s, delimiter=",")
+    
+    print(world.regions)
+
+    print(L1s)
 
     #pop2015 = scalar_data('regionPops.csv', 2015)
 
@@ -277,6 +282,6 @@ def main():
     #model1_compiler(world, subs, 1)
     #logging.info(world)
     #model1_test()
-    model1_5_percenterror()
+    model2_percenterror()
 
 main()
