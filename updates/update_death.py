@@ -5,5 +5,6 @@ def update_death(world, year, n):
     region = world.regions[n]
 
     deathrates = scalar_data('pr_birthrate.csv', year)
+    #deathrates -= 2.5
 
     region.deathrate = deathrates[n]

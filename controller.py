@@ -51,7 +51,7 @@ def model1_stochastic_pass(world, subs):
     def node_pass(world, subs, n):
         birth(world, subs, n)
         death(world, subs, n)
-        migration(world, subs, n)
+        #migration(world, subs, n)
         #regional(world, subs, n)
     run_pass_stoc(world, subs, node_pass)
 
@@ -76,7 +76,7 @@ def model1_stoch_full_bd(world, subs):
 
 def model1_5_5yearpass(world, subs, startyear):
     for i in range(0,5*subs):
-        model1_compiler_pass(world, subs)
+        model1_stochastic_pass(world, subs)
     run_pass_seq(world, subs, lambda world,subs,n: update_birth(world, startyear+5, n))
     run_pass_seq(world, subs, lambda world,subs,n: update_death(world, startyear+5, n))
 
@@ -160,7 +160,9 @@ def model1_5_percenterror():
     language_names = lang_names('L1_Language_Data.csv')
     pops = scalar_data('regionPops.csv', 2010)
     brates = scalar_data('r_birthRate.csv', 2010)
+    #brates += 2.5
     drates = scalar_data('r_deathRate.csv', 2010)
+    #drates -= 2.5
     k_vals = mig_data('actual_r_migration2000_withk.csv')
     #logging.debug('K VALUES')
     #print(k_vals)
@@ -175,11 +177,11 @@ def model1_5_percenterror():
 
     popRegionalErrorData = []
     popTotalErrorData = []
-    numDivisions = 1
-    num5yearChuncks = 8
+    numDivisions =10000
+    num5yearChuncks = 12
     for i in range(0,num5yearChuncks):
         model1_5_5yearpass(world, numDivisions, 2010)
-        projectedPops = scalar_data('projectedPopData.csv', 2010+5*i)
+        projectedPops = scalar_data('projectedPopData.csv', 2010+5*(i+1))
         #print(projectedPops)
         popRegionalErrorData.append(((populations(world) - projectedPops*1000)/(projectedPops*1000)))
         popTotalErrorData.append((np.sum(populations(world)) - np.sum(projectedPops*1000))/ np.sum(projectedPops*1000))
@@ -189,8 +191,8 @@ def model1_5_percenterror():
     print(popRegionalErrorData)
     print(popTotalErrorData)
     popRegionalErrorData = np.transpose(np.asarray(popRegionalErrorData))
-    #np.savetxt("popRegionalError_12.csv", popRegionalErrorData, delimiter=",")
-    np.savetxt("L1_1_2050.csv", L1s, delimiter=",")
+    np.savetxt("prop_popRegionalError_10000.csv", popRegionalErrorData, delimiter=",")
+    #np.savetxt("L1_1_2050.csv", L1s, delimiter=",")
 
     #pop2015 = scalar_data('regionPops.csv', 2015)
 
