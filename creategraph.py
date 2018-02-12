@@ -7,7 +7,8 @@ import logging
 def create_regions(names, pops, L1s, L2s, brates, drates):
     regions = [Struct(name=n) for n in names]
     n = len(regions)
-    logging.debug(len(brates))
+    logging.debug(brates)
+    logging.debug(drates)
     for i in range(0,n):
         regions[i].population = pops[i]
         regions[i].L1 = L1s[i,:]

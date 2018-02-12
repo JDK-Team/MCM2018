@@ -2,6 +2,8 @@ import logging
 
 def birth(world, subs, n):
     region = world.regions[n]
+    
+    #logging.debug(region.birthrate)
 
     thousands = region.population / 1000
     region.population += (thousands * region.birthrate) / subs
