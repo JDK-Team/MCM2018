@@ -116,6 +116,13 @@ def model1_5_5yearpass(world, subs, startyear):
     run_pass_seq(world, subs, lambda world,subs,n: update_birth(world, startyear+5, n))
     run_pass_seq(world, subs, lambda world,subs,n: update_death(world, startyear+5, n))
 
+def model1_5_5yearpass_fine(world, subs, startyear):
+    for i in range(0,5):
+        for j in range(0,subs):
+            model1_bd_comppass(world, subs)
+        run_pass_seq(world, subs, lambda world,subs,n: update_birth_fine(world, startyear+i+1, n))
+        run_pass_seq(world, subs, lambda world,subs,n: update_death_fine(world, startyear+i+1, n))
+
 def model2_5yearpass(world, subs, startyear):
     for i in range(0,5*subs):
         logging.debug("YEAR " + str(i))
@@ -123,6 +130,12 @@ def model2_5yearpass(world, subs, startyear):
     run_pass_seq(world, subs, lambda world,subs,n: update_birth(world, startyear+5, n))
     run_pass_seq(world, subs, lambda world,subs,n: update_death(world, startyear+5, n))
 
+def model2_5yearpass_fine(world, subs, startyear):
+    for i in range(0,5):
+        for j in range(0,subs):
+            model2_compiler_bdm(world, subs)
+        run_pass_seq(world, subs, lambda world,subs,n: update_birth_fine(world, startyear+i+1, n))
+        run_pass_seq(world, subs, lambda world,subs,n: update_death_fine(world, startyear+i+1, n))
 # run the whole model
 
 def measuringStick():
@@ -231,7 +244,7 @@ def model1_5_percenterror():
     numDivisions = 12
     num5yearChuncks = 12
     for i in range(0,num5yearChuncks):
-        model1_5_5yearpass(world, numDivisions, 2010)
+        model1_5_5yearpass_fine(world, numDivisions, 2010+5*i)
         projectedPops = scalar_data('projectedPopData.csv', 2010+5*(i+1))
         #print(projectedPops)
         popTotals.append(np.append(populations(world), np.sum(populations(world))))
@@ -362,8 +375,8 @@ def model2_percenterror():
     numDivisions = 12
     num5yearChuncks = 12
     for i in range(0,num5yearChuncks):
-        model2_5yearpass(world, numDivisions, 2010)
-        projectedPops = scalar_data('projectedPopData.csv', 2010+5*i)
+        model2_5yearpass_fine(world, numDivisions, 2010+5*i)
+        projectedPops = scalar_data('projectedPopData.csv', 2010+5*(i+1))
         #print(projectedPops)
         popTotals.append(np.append(populations(world), np.sum(populations(world))))
         popRegionalErrorData.append(((populations(world) - projectedPops*1000)/(projectedPops*1000)))
@@ -404,7 +417,7 @@ def main():
     #model1_compiler(world, subs, 1)
     #logging.info(world)
     #model1_test()
-    model1_5_percenterror()
-    #model2_percenterror()
+    #model1_5_percenterror()
+    model2_percenterror()
 
 main()
