@@ -126,14 +126,14 @@ def model1_5_5yearpass_fine(world, subs, startyear):
 def model2_5yearpass(world, subs, startyear):
     for i in range(0,5*subs):
         logging.debug("YEAR " + str(i))
-        model2_compiler_bdm(world, subs)
+        model2_compiler_bmd(world, subs)
     run_pass_seq(world, subs, lambda world,subs,n: update_birth(world, startyear+5, n))
     run_pass_seq(world, subs, lambda world,subs,n: update_death(world, startyear+5, n))
 
 def model2_5yearpass_fine(world, subs, startyear):
     for i in range(0,5):
         for j in range(0,subs):
-            model2_compiler_bdm(world, subs)
+            model2_compiler_mbd(world, subs)
         run_pass_seq(world, subs, lambda world,subs,n: update_birth_fine(world, startyear+i+1, n))
         run_pass_seq(world, subs, lambda world,subs,n: update_death_fine(world, startyear+i+1, n))
 # run the whole model
@@ -409,7 +409,7 @@ def model2_percenterror():
     #np.savetxt("popRegionalError_12.csv", popRegionalErrorData, delimiter=",")
     #saveLang(L1s, "L1_2_2070.csv")
     #saveLang(L2s, "L2_2_2070.csv")
-    savePops(popTotals, "sensitivity/populations_bdm.csv")
+    savePops(popTotals, "sensitivity/populations_mbd.csv")
     saveLang(L1s, "L1_1_2070.csv")
     saveLang(L2s, "L2_1_2070.csv")
     #np.savetxt("L1_1_2070.csv", L1s, delimiter=",")
@@ -428,6 +428,49 @@ def model2_percenterror():
     #logging.info(pop2015 - populations(world))
     #logging.debug([usa for usa in world.regions if usa.name == 'USA'])
 
+def model2_sensitivity(j):
+    names = identifiers()
+    language_names = lang_names('L1_Language_Data.csv')
+    pops = scalar_data('regionPops.csv', 2010)
+    brates = scalar_data('r_birthRate.csv', 2010)
+    drates = scalar_data('r_deathRate.csv', 2010)
+    k_vals = mig_data('actual_r_migration2000_withk.csv')
+    
+    k_vals *= j
+    print(j)
+
+    L1s = lang_data('L1_Language_Data.csv')
+    #logging.debug("LANG DATA: " + str(L1s))
+    L2s = lang_data('L2_Language_Data.csv')
+    world = create_graph(names, pops, L1s, L2s, brates, drates, language_names, k_vals)
+    #logging.debug(world)
+    #logging.debug(np.sum(populations(world)))
+
+
+    logging.debug([cb for cb in world.regions if cb.name == 'Caribbean'])
+    popRegionalErrorData = []
+    popTotalErrorData = []
+    popTotals = []
+    numDivisions = 12
+    num5yearChuncks = 12
+    for i in range(0,num5yearChuncks):
+        model2_5yearpass_fine(world, numDivisions, 2010+5*i)
+        projectedPops = scalar_data('projectedPopData.csv', 2010+5*(i+1))
+        #print(projectedPops)
+        popTotals.append(np.append(populations(world), np.sum(populations(world))))
+        popRegionalErrorData.append(((populations(world) - projectedPops*1000)/(projectedPops*1000)))
+        popTotalErrorData.append((np.sum(populations(world)) - np.sum(projectedPops*1000))/ np.sum(projectedPops*1000))
+
+        #logging.debug(populations(world))
+        #logging.debug(np.sum(populations(world)))
+    #print(popRegionalErrorData)
+    print(popTotalErrorData)
+    popRegionalErrorData = np.transpose(np.asarray(popRegionalErrorData))
+    #np.savetxt("popRegionalError_12.csv", popRegionalErrorData, delimiter=",")
+    saveLang(L1s, "sensitivity/L1_kvals_" + str(j) + ".csv")
+    saveLang(L2s, "sensitivity/L2_kvals_" + str(j) + ".csv")
+    #savePops(popTotals, "sensitivity/populations_drates_" + str(j) + ".csv")
+
 # get statistics
 def populations(world):
     return np.array([reg.population for reg in world.regions])
@@ -439,6 +482,8 @@ def main():
     #logging.info(world)
     #model1_test()
     #model1_5_percenterror()
-    model2_percenterror()
+    #model2_percenterror()
+    for i in np.linspace(0.7,1.3,7):
+        model2_sensitivity(i)
 
 main()
