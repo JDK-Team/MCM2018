@@ -244,6 +244,7 @@ def model1_5_percenterror():
     popRegionalErrorData = []
     popTotals = []
     popTotalErrorData = []
+    popUNDifferenceData = []
     numDivisions = 12
     num5yearChuncks = 12
     for i in range(0,num5yearChuncks):
@@ -253,7 +254,9 @@ def model1_5_percenterror():
         popTotals.append(np.append(populations(world), np.sum(populations(world))))
         popRegionalErrorData.append(((populations(world) - projectedPops*1000)/(projectedPops*1000)))
         popTotalErrorData.append((np.sum(populations(world)) - np.sum(projectedPops*1000))/ np.sum(projectedPops*1000))
-
+        popUNDifferenceData.append(np.append(((populations(world) - projectedPops * 1000) / (projectedPops * 1000)),
+                                             (np.sum(populations(world)) - np.sum(projectedPops * 1000)) / np.sum(
+                                                 projectedPops * 1000)))
         #logging.debug(populations(world))
         #logging.debug(np.sum(populations(world)))
     print(popRegionalErrorData)
@@ -265,6 +268,7 @@ def model1_5_percenterror():
     saveLang(L2s, "L2_1_2070.csv")
     #np.savetxt("L1_1_2070.csv", L1s, delimiter=",")
     savePops(popTotals, "sensitivity/populations_update_2050_bd.csv")
+    savePops(popUNDifferenceData, "model1pops/un_popdifference_bd.csv")
 
 def model1_5_percenterror_2050():
     names = identifiers()
@@ -293,6 +297,7 @@ def model1_5_percenterror_2050():
     popRegionalErrorData = []
     popTotals = []
     popTotalErrorData = []
+    popUNDifferenceData = []
     numDivisions = 12
     num5yearChuncks = 4
     for i in range(0,num5yearChuncks):
@@ -302,6 +307,9 @@ def model1_5_percenterror_2050():
         popTotals.append(np.append(populations(world), np.sum(populations(world))))
         popRegionalErrorData.append(((populations(world) - projectedPops*1000)/(projectedPops*1000)))
         popTotalErrorData.append((np.sum(populations(world)) - np.sum(projectedPops*1000))/ np.sum(projectedPops*1000))
+        popUNDifferenceData.append(np.append(((populations(world) - projectedPops*1000)/(projectedPops*1000)),
+                                             (np.sum(populations(world)) - np.sum(projectedPops * 1000)) / np.sum(
+                                                 projectedPops * 1000)))
 
         #logging.debug(populations(world))
         #logging.debug(np.sum(populations(world)))
@@ -311,6 +319,7 @@ def model1_5_percenterror_2050():
     #np.savetxt("prop_popRegionalError_10000.csv", popRegionalErrorData, delimiter=",")
     np.savetxt("L1_1_2070.csv", L1s, delimiter=",")
     savePops(popTotals, "sensitivity/populations_update_2050_bd.csv")
+    savePops(popUNDifferenceData, "model1pops/un_popdifference_")
 
     #pop2015 = scalar_data('regionPops.csv', 2015)
 
