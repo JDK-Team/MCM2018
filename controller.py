@@ -282,8 +282,8 @@ def model2_percenterror():
     #print(popTotalErrorData)
     popRegionalErrorData = np.transpose(np.asarray(popRegionalErrorData))
     #np.savetxt("popRegionalError_12.csv", popRegionalErrorData, delimiter=",")
-    saveLang(L1s, "L1_2_2070.csv")
-    saveLang(L2s, "L2_2_2070.csv")
+    #saveLang(L1s, "L1_2_2070.csv")
+    #saveLang(L2s, "L2_2_2070.csv")
     #np.savetxt("L1_1_2070.csv", L1s, delimiter=",")
     #np.savetxt("L2_1_2070.csv", L2s, delimiter=",")
     
