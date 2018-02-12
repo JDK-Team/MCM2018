@@ -334,26 +334,16 @@ regions = ["Angola", "ArabicMiddleEast", "ArabicWestAfrica", "AustrailiaNewZeala
            "Tajikistan", "TurkishMiddleEast", "USA"]
 
 
-def saveLang(languageData, filename):
-    top = ["country", "Arabic", "Bengali", "Catonese", "English", "French", "German", "Hausa", "Hindustani", "Italian",
-           "Japonese", "Javanese", "Korean", "Malay", "Mandarin Chinese", "Marathi", "Persian", "Portuguese", "Punjabi",
-           "Russian", "Spanish", "Swahili", "Tamil", "Telugu", "Turkish", "Vietnamese", "Wu Chinese"]
-    lDataList = languageData.tolist()
-    with open(filename, "w") as csv_file:
-        writer = csv.writer(csv_file, delimiter=',')
-        writer.writerow(top)
-        for index in range(0, len(regions)):
-            lDataList[index].insert(0, regions[index])
-            writer.writerow(lDataList[index])
-
 def savePops(popData, filename):
-    top = regions + ["World"]
+    top = ["year"] + regions + ["World"]
+    years = [2015, 2020, 2025, 2030, 2035, 2040, 2045, 2050, 2055, 2060, 2065, 2070]
     pDataList = popData
     #print(popData)
     with open(filename, "w") as csv_file:
         writer = csv.writer(csv_file, delimiter=',')
         writer.writerow(top)
         for index in range(0, len(pDataList)):
+            pDataList[index] = np.insert(pDataList[index], 0, years[index])
             writer.writerow(pDataList[index])
 
 def model2_percenterror():
