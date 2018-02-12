@@ -130,12 +130,12 @@ def model2_5yearpass(world, subs, startyear):
     run_pass_seq(world, subs, lambda world,subs,n: update_birth(world, startyear+5, n))
     run_pass_seq(world, subs, lambda world,subs,n: update_death(world, startyear+5, n))
 
-def model2_5yearpass_fine(world, subs, startyear):
+def model2_5yearpass_fine(world, subs, startyear,i):
     for i in range(0,5):
         for j in range(0,subs):
-            model2_compiler_mbd(world, subs)
-        run_pass_seq(world, subs, lambda world,subs,n: update_birth_fine(world, startyear+i+1, n))
-        run_pass_seq(world, subs, lambda world,subs,n: update_death_fine(world, startyear+i+1, n))
+            model2_compiler_bdm(world, subs)
+        run_pass_seq(world, subs, lambda world,subs,n: update_birth_fine(world, startyear+i+1, n,1))
+        run_pass_seq(world, subs, lambda world,subs,n: update_death_fine(world, startyear+i+1, n,i))
 # run the whole model
 
 def measuringStick():
@@ -355,6 +355,16 @@ regions = ["Angola", "ArabicMiddleEast", "ArabicWestAfrica", "AustrailiaNewZeala
            "Portugal", "RussianAsia", "Somalia", "SoutheastAsia", "SouthernAfrica", "Spain", "SpanishSouthAmerica",
            "Tajikistan", "TurkishMiddleEast", "USA"]
 
+def saveK(k_vals):
+    top = ["region"] + regions
+    with open('k_vals.csv', "w") as csv_file:
+        writer = csv.writer(csv_file, delimiter=",")
+        writer.writerow(top)
+        kArray = k_vals.tolist()
+        for i in range(0,len(kArray)):
+            kArray[i].insert(0,regions[i])
+            writer.writerow(kArray[i])
+
 
 def savePops(popData, filename):
     top = ["year"] + regions + ["World"]
@@ -427,7 +437,7 @@ def model2_percenterror():
 
     #logging.info(pop2015 - populations(world))
     #logging.debug([usa for usa in world.regions if usa.name == 'USA'])
-
+from pprintpp import pprint
 def model2_sensitivity(j):
     names = identifiers()
     language_names = lang_names('L1_Language_Data.csv')
@@ -435,8 +445,12 @@ def model2_sensitivity(j):
     brates = scalar_data('r_birthRate.csv', 2010)
     drates = scalar_data('r_deathRate.csv', 2010)
     k_vals = mig_data('actual_r_migration2000_withk.csv')
+
+    drates *= j
     
-    k_vals *= j
+    #saveK(k_vals) 
+
+    #k_vals *= j
     print(j)
 
     L1s = lang_data('L1_Language_Data.csv')
@@ -454,7 +468,7 @@ def model2_sensitivity(j):
     numDivisions = 12
     num5yearChuncks = 12
     for i in range(0,num5yearChuncks):
-        model2_5yearpass_fine(world, numDivisions, 2010+5*i)
+        model2_5yearpass_fine(world, numDivisions, 2010+5*i, j)
         projectedPops = scalar_data('projectedPopData.csv', 2010+5*(i+1))
         #print(projectedPops)
         popTotals.append(np.append(populations(world), np.sum(populations(world))))
@@ -467,9 +481,9 @@ def model2_sensitivity(j):
     print(popTotalErrorData)
     popRegionalErrorData = np.transpose(np.asarray(popRegionalErrorData))
     #np.savetxt("popRegionalError_12.csv", popRegionalErrorData, delimiter=",")
-    saveLang(L1s, "sensitivity/L1_kvals_" + str(j) + ".csv")
-    saveLang(L2s, "sensitivity/L2_kvals_" + str(j) + ".csv")
-    #savePops(popTotals, "sensitivity/populations_drates_" + str(j) + ".csv")
+    #saveLang(L1s, "sensitivity/L1_kvals_" + str(j) + ".csv")
+    #saveLang(L2s, "sensitivity/L2_kvals_" + str(j) + ".csv")
+    savePops(popTotals, "sensitivity/populations_drates_" + str(j) + ".csv")
 
 # get statistics
 def populations(world):
