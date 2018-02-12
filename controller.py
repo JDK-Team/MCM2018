@@ -130,12 +130,12 @@ def model2_5yearpass(world, subs, startyear):
     run_pass_seq(world, subs, lambda world,subs,n: update_birth(world, startyear+5, n))
     run_pass_seq(world, subs, lambda world,subs,n: update_death(world, startyear+5, n))
 
-def model2_5yearpass_fine(world, subs, startyear,i):
+def model2_5yearpass_fine(world, subs, startyear,k):
     for i in range(0,5):
         for j in range(0,subs):
             model2_compiler_bdm(world, subs)
-        run_pass_seq(world, subs, lambda world,subs,n: update_birth_fine(world, startyear+i+1, n,1))
-        run_pass_seq(world, subs, lambda world,subs,n: update_death_fine(world, startyear+i+1, n,i))
+        run_pass_seq(world, subs, lambda world,subs,n: update_birth_fine(world, startyear+i+1, n,k))
+        run_pass_seq(world, subs, lambda world,subs,n: update_death_fine(world, startyear+i+1, n,1))
 # run the whole model
 
 def measuringStick():
@@ -446,7 +446,7 @@ def model2_sensitivity(j):
     drates = scalar_data('r_deathRate.csv', 2010)
     k_vals = mig_data('actual_r_migration2000_withk.csv')
 
-    drates *= j
+    brates *= j
     
     #saveK(k_vals) 
 
@@ -483,7 +483,7 @@ def model2_sensitivity(j):
     #np.savetxt("popRegionalError_12.csv", popRegionalErrorData, delimiter=",")
     #saveLang(L1s, "sensitivity/L1_kvals_" + str(j) + ".csv")
     #saveLang(L2s, "sensitivity/L2_kvals_" + str(j) + ".csv")
-    savePops(popTotals, "sensitivity/populations_drates_" + str(j) + ".csv")
+    savePops(popTotals, "sensitivity/populations_brates_" + str(j) + ".csv")
 
 # get statistics
 def populations(world):

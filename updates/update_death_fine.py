@@ -2,7 +2,7 @@
 from data_retrival.import_pop import scalar_data
 import logging
 
-def update_death_fine(world, year, n):
+def update_death_fine(world, year, n, i):
     region = world.regions[n]
     
     if year == 2070:
@@ -12,12 +12,13 @@ def update_death_fine(world, year, n):
     year = (year // 5) * 5
 
     deathrates_now = scalar_data('pr_deathrate.csv', year)
+    deathrates_now *= i
     if year == 2065:
         region.deathrate = deathrates_now[n]
         return
     
     deathrates_future = scalar_data('pr_deathrate.csv', year+5)
-
+    deathrates_future *= i
 
     diff = deathrates_future[n] - deathrates_now[n]
     region.deathrate = deathrates_now[n] + partial*(diff/5)

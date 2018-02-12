@@ -4,8 +4,8 @@ import logging
 def death(world, subs, n):
     region = world.regions[n]
 
-    logging.debug("BIRTH: " + str(region.birthrate))
-    logging.debug("DEATH: " + str(region.deathrate))
+    #logging.debug("BIRTH: " + str(region.birthrate))
+    #logging.debug("DEATH: " + str(region.deathrate))
     thousands = region.population / 1000
     region.population -= (thousands * region.deathrate) / subs
 
